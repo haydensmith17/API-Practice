@@ -1,0 +1,7 @@
+.storeCards {
+    display: flex;
+    gap: 63px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
