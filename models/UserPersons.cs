@@ -14,4 +14,8 @@ namespace apiPractice.models;
         public string Email { get; set; }
         public string Password { get; set; }
         public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+        public virtual ICollection<Card> Cards { get; set; } = new List<Card>();
+        public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
+        public virtual ICollection<BoardAccessories> BoardAccessories { get; set; } = new List<BoardAccessories>();
+
     }

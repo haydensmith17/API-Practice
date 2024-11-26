@@ -5,6 +5,9 @@ import axios from "axios";
 const baseUrl = "https://localhost:7107/User";
 const boardUrl = "https://localhost:7107/Board";
 const cartUrl = "https://localhost:7107/Cart";
+const cardUrl = "https://localhost:7107/card";
+const addressUrl = "https://localhost:7107/address";
+const accessoryUrl = "https://localhost:7107/Accessory";
 
 export const AuthContext = React.createContext({});
 
@@ -12,6 +15,7 @@ export function UserHttp(props) {
     const [user, setUser] = React.useState(null);
 
     async function GetUser(email, password) {
+        debugger
         const response = await axios.get(`${baseUrl}/all?email=${email}&password=${password}`)
         setUser(response.data)
         console.log(response.data)
@@ -75,6 +79,14 @@ export function UserHttp(props) {
                     await axios.delete(`${cartUrl}/delete?cartID=${crap}`)
                     GetUser(email, password)
                 },
+                addCard: async (PersonID, CardNumber, ExpDate, CVV, email, password) => {
+                    await axios.post(`${cardUrl}/card`, {PersonID, CardNumber, ExpDate, CVV})
+                    GetUser(email, password)
+                },
+                addAddress: async (PersonID, StreetAddress, City, StateOrigin, ZIP, Country, email, password) => {
+                    await axios.post(`${addressUrl}/address`, {PersonID, StreetAddress, City, StateOrigin, ZIP, Country})
+                    GetUser(email, password)
+                }
             }}
         >
             {props.children}

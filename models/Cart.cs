@@ -9,8 +9,10 @@ public partial class Cart
     public int CartID { get; set; }
     public int Personid { get; set; }
     public int Id { get; set; }
+    public int AccessoryId { get; set; }
     public DateTime? CreatedOn { get; set; }
     public DateTime? UpdatedOn { get; set; }
-    public virtual BoardInfo? BoardInfo { get; set; }  // Adjust the navigation property name
+    public virtual ICollection<BoardInfo> BoardInfoProp { get; set; } = new List<BoardInfo>();
     public virtual UserPersons? UserPersons { get; set; }
+    public virtual BoardAccessories? BoardAccessories { get; set; }
 }

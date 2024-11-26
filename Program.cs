@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using apiPractice.Interface;
 using apiPractice.models;
 using apiPractice.services;
 using Microsoft.EntityFrameworkCore;
@@ -13,15 +14,18 @@ builder.Services.AddCors(opt=>
 {
 opt.AddPolicy("CorsPolicy",policy =>
 {
-policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3001");
 });
 });
 // Add services to the container.
 builder.Services.AddControllers();
 // builder.Services.AddTransient<Stuff>();
+builder.Services.AddTransient<CardService>();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<BoardService>();
 builder.Services.AddTransient<CartService>();
+builder.Services.AddTransient<AddressService>();
+builder.Services.AddTransient<AccessoryService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers().AddJsonOptions(config =>

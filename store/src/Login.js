@@ -10,45 +10,46 @@ import { AuthContext } from './UserHttp';
 
 
 function Login() {
-    const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [open, setOpen] = useState(false);
-    const {login} = useContext(AuthContext)
-  
-  
-    function handleClick() {
-      navigate('/SignUp');
-    }
-  
-    async function handleLogin() {
-      try {
-        setIsLoading(true); // Show loading state
-        await login(email, password); // Try to login
-    
-        // Navigate to store only if login is successful
-        navigate('/Store');
-      } catch (error) {
-        setOpen(true); // Show the error alert
-        setIsLoading(false); // Stop loading state
-        console.error(error); // Log the error for debugging
-      }   
-    }
-    
-  
-    // Handle the Enter key press for the "Login" button
-    const handleLoginKeyDown = (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent default form submission
-        handleLogin(); // Call the login function
-      }
-    };
-   
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { login } = useContext(AuthContext)
 
-    return (
-        <>
-          <Box
+
+  function handleClick() {
+    navigate('/SignUp');
+  }
+
+  async function handleLogin() {
+    try {
+      debugger
+      setIsLoading(true); // Show loading state
+      await login(email, password); // Try to login
+
+      // Navigate to store only if login is successful
+      navigate('/Store');
+    } catch (error) {
+      setOpen(true); // Show the error alert
+      setIsLoading(false); // Stop loading state
+      console.error(error); // Log the error for debugging
+    }
+  }
+
+
+  // Handle the Enter key press for the "Login" button
+  const handleLoginKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent default form submission
+      handleLogin(); // Call the login function
+    }
+  };
+
+
+  return (
+    <>
+      <Box
         component="form"
         sx={{
           '& > :not(style)': { m: 1, width: '25ch', display: 'flex', flexDirection: 'column', margin: '10px auto' },
@@ -82,8 +83,8 @@ function Login() {
           </Alert>
         </Collapse>
       </Box>
-        </>
-    );
+    </>
+  );
 }
 
 export default Login;

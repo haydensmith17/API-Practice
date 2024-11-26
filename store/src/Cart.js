@@ -11,11 +11,15 @@ import Paper from '@mui/material/Paper';
 import { AuthContext } from './UserHttp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-
+import Card from "./Card";
+import Address from "./Address";
 
 function Cart() {
   const user = JSON.parse(localStorage.getItem("user"));
   const { deleteCartBoard } = useContext(AuthContext)
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   async function DeleteBoard(crap) {
     await deleteCartBoard(crap, user.email, user.password)
@@ -23,9 +27,16 @@ function Cart() {
 
   return (
     <>
+
       <div>
         <DrawerAppBar />
       </div>
+      <Button onClick={handleOpen}>Add Card</Button>
+      <Card open={open} handleClose={handleClose}/>
+
+      <Button onClick={handleOpen}>Add Address</Button>
+      <Address open={open} handleClose={handleClose}/>
+      
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
