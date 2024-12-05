@@ -17,8 +17,15 @@ namespace apiPractice.services
 
         public UserPersons GetPerson(string email, string password)
         {
-            var user = _newUser.User.Include(e => e.Carts).ThenInclude(e => e.BoardInfoProp).Include(e => e.Cards).Include(e => e.Addresses)
+            var user = _newUser.User
+                .Include(e => e.Carts)
+                    .ThenInclude(e => e.BoardInfo)
+                .Include(e => e.Carts)
+                    .ThenInclude(e => e.BoardAccessories)
+                .Include(e => e.Cards)
+                .Include(e => e.Addresses)
                 .FirstOrDefault(e => e.Email == email);
+
             if (user == null || user.Password != password)
             {
                 return null;

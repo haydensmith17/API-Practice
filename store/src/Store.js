@@ -79,123 +79,135 @@ function Store() {
 
     return (
         <>
-            <DrawerAppBar />
-            <Button onClick={handleOpen}>Filters</Button>
+            <div className='DrawerAppBar'>
+                <DrawerAppBar />
+            </div>
             <Modal
                 open={openFilterModal}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box sx={style} >
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Filters
                     </Typography>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox defaultChecked checked={() => setBoardFilter(true)} />} label="Boards" />
-                        <FormControlLabel control={<Checkbox defaultChecked onChange={() => setAccessoryFilter((prevState) => !prevState)} />} label="Accessories" />
+                        <FormControlLabel control={<Checkbox checked={boardFilter} onChange={() => setBoardFilter((prevState) => !prevState)} />} label="Boards" />
+                        <FormControlLabel control={<Checkbox checked={accessoryFilter} onChange={() => setAccessoryFilter((prevState) => !prevState)} />} label="Accessories" />
                     </FormGroup>
                 </Box>
             </Modal>
-            <div className='storeCards'>
-                {boardFilter && board.map((info, index) => (
-                    <Card sx={{ maxWidth: 345 }} key={index}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="300"
-                                image={info.image}
-                                alt={info.name}
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {info.manufacturer} - {info.name} {info.size}cm ${info.price}
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <IconButton
-                                    onClick={() => handleExpandClick(index)}
-                                    aria-expanded={expandedCard === index}
-                                    aria-label="show more"
-                                >
-                                    <ExpandMoreIcon />
-                                </IconButton>
-                            </CardActions>
-                            <Collapse in={expandedCard === index} timeout="auto" unmountOnExit>
+            <div className='store'>
+                <div className='filterButton'>
+                    <Button sx={{backgroundColor: "#20A7AC"}} variant='contained' onClick={handleOpen}>Filters</Button>
+                </div>
+                <div className='storeCards'>
+                    <div className='boardCards'>
+                    {boardFilter && board.map((info, index) => (
+                        <>
+                            <Card sx={{ maxWidth: 345 }} key={index} >
+                                <CardActionArea>
+                                    <CardMedia
+                                        component="img"
+                                        height="300"
+                                        image={info.image}
+                                        alt={info.name}
+                                        />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {info.manufacturer} - {info.name} {info.size}cm ${info.price}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions disableSpacing>
+                                        <IconButton
+                                            onClick={() => handleExpandClick(index)}
+                                            aria-expanded={expandedCard === index}
+                                            aria-label="show more"
+                                            >
+                                            <ExpandMoreIcon />
+                                        </IconButton>
+                                    </CardActions>
+                                    <Collapse in={expandedCard === index} timeout="auto" unmountOnExit>
+                                        <CardContent>
+                                            <Typography>
+                                                {info.description}
+                                            </Typography>
+                                        </CardContent>
+                                    </Collapse>
+                                    <Button onClick={() => HandleDelete(info.id)}>Delete</Button>
+                                    <Button onClick={() => AddToCart(info.id)} >Add to Cart</Button>
+                                </CardActionArea>
+                                <Collapse in={open}>
+                                    <Alert
+                                        severity="success"
+                                        action={
+                                            <IconButton aria-label="close" color="inherit" size="small" onClick={() => setOpen(false)}>
+                                                <CloseIcon fontSize="inherit" />
+                                            </IconButton>
+                                        }
+                                        sx={{ mb: 2 }}
+                                        >
+                                        <AlertTitle>Success</AlertTitle>
+                                        Invalid Email or Password!
+                                    </Alert>
+                                </Collapse>
+                            </Card>
+                        </>
+                    ))}
+                    </div>
+                    <div className='accessoryCards'>
+                    {accessoryFilter && accessories.map((info, index) => (
+                        <Card sx={{ maxWidth: 345 }} key={index}>
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    height="300"
+                                    image={info.image}
+                                    alt={info.name}
+                                    />
                                 <CardContent>
-                                    <Typography>
-                                        {info.description}
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {info.manufacturer} - {info.name} {info.size}cm ${info.price}
                                     </Typography>
                                 </CardContent>
-                            </Collapse>
-                            <button onClick={() => HandleDelete(info.id)}>Delete</button>
-                            <button onClick={() => AddToCart(info.id)} >Add to Cart</button>
-                        </CardActionArea>
-                        <Collapse in={open}>
-                            <Alert
-                                severity="success"
-                                action={
-                                    <IconButton aria-label="close" color="inherit" size="small" onClick={() => setOpen(false)}>
-                                        <CloseIcon fontSize="inherit" />
+                                <CardActions disableSpacing>
+                                    <IconButton
+                                        onClick={() => handleExpandClick(index)}
+                                        aria-expanded={expandedCard === index}
+                                        aria-label="show more"
+                                        >
+                                        <ExpandMoreIcon />
                                     </IconButton>
-                                }
-                                sx={{ mb: 2 }}
-                            >
-                                <AlertTitle>Success</AlertTitle>
-                                Invalid Email or Password!
-                            </Alert>
-                        </Collapse>
-                    </Card>
-                ))}
-                {accessoryFilter && accessories.map((info, index) => (
-                    <Card sx={{ maxWidth: 345 }} key={index}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="300"
-                                image={info.image}
-                                alt={info.name}
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {info.manufacturer} - {info.name} {info.size}cm ${info.price}
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <IconButton
-                                    onClick={() => handleExpandClick(index)}
-                                    aria-expanded={expandedCard === index}
-                                    aria-label="show more"
-                                >
-                                    <ExpandMoreIcon />
-                                </IconButton>
-                            </CardActions>
-                            <Collapse in={expandedCard === index} timeout="auto" unmountOnExit>
-                                <CardContent>
-                                    <Typography>
-                                        {info.description}
-                                    </Typography>
-                                </CardContent>
-                            </Collapse>
-                            {/* <button onClick={() => HandleDelete(info.id)}>Delete</button>
+                                </CardActions>
+                                <Collapse in={expandedCard === index} timeout="auto" unmountOnExit>
+                                    <CardContent>
+                                        <Typography>
+                                            {info.description}
+                                        </Typography>
+                                    </CardContent>
+                                </Collapse>
+                                {/* <button onClick={() => HandleDelete(info.id)}>Delete</button>
                         <button onClick={() => AddToCart(info.id)} >Add to Cart</button> */}
-                        </CardActionArea>
-                        <Collapse in={open}>
-                            <Alert
-                                severity="success"
-                                action={
-                                    <IconButton aria-label="close" color="inherit" size="small" onClick={() => setOpen(false)}>
-                                        <CloseIcon fontSize="inherit" />
-                                    </IconButton>
-                                }
-                                sx={{ mb: 2 }}
-                            >
-                                <AlertTitle>Success</AlertTitle>
-                                Invalid Email or Password!
-                            </Alert>
-                        </Collapse>
-                    </Card>
-                ))}
+                            </CardActionArea>
+                            <Collapse in={open}>
+                                <Alert
+                                    severity="success"
+                                    action={
+                                        <IconButton aria-label="close" color="inherit" size="small" onClick={() => setOpen(false)}>
+                                            <CloseIcon fontSize="inherit" />
+                                        </IconButton>
+                                    }
+                                    sx={{ mb: 2 }}
+                                    >
+                                    <AlertTitle>Success</AlertTitle>
+                                    Invalid Email or Password!
+                                </Alert>
+                            </Collapse>
+                        </Card>
+                    ))}
+                    </div>
+                </div>
             </div>
         </>
     );

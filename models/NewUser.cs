@@ -55,7 +55,6 @@ namespace apiPractice.models
            {
                entity.HasKey(e => e.Id).HasName("newboard_pkey");
                entity.ToTable("newboard");
-
                entity.Property(e => e.Id)
                    .HasColumnName("id");
                entity.Property(e => e.Name)
@@ -82,10 +81,6 @@ namespace apiPractice.models
                entity.Property(e => e.Manufacturer)
                    .HasMaxLength(255)
                    .HasColumnName("manufacturer");
-               entity.HasOne(e => e.Carts)
-                   .WithMany(e => e.BoardInfoProp)
-                   .HasForeignKey(e => e.Id)
-                   .HasConstraintName("newboard_pkey");
            });
             modelBuilder.Entity<Cart>(entity =>
        {
@@ -103,8 +98,8 @@ namespace apiPractice.models
                .HasForeignKey(d => d.Personid)
                .HasConstraintName("cart_personid_pkey");
 
-           entity.HasMany(d => d.BoardInfoProp)
-               .WithOne(p => p.Carts)
+           entity.HasOne(d => d.BoardInfo)
+               .WithMany(p => p.Carts)
                .HasForeignKey(d => d.Id)
                .HasConstraintName("cart_id_fkey");
 
@@ -207,10 +202,6 @@ modelBuilder.Entity<BoardAccessories>(entity =>
                entity.Property(e => e.Manufacturer)
                    .HasMaxLength(255)
                    .HasColumnName("manufacturer");
-                entity.HasMany(e => e.Carts)
-          .WithOne(e => e.BoardAccessories)
-          .HasForeignKey(e => e.AccessoryId)
-          .HasConstraintName("cart_accessoryid_fkey");
            });
             OnModelCreatingPartial(modelBuilder);
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
@@ -16,5 +17,6 @@ namespace apiPractice.models;
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
         public string Manufacturer { get; set; }
-        public virtual Cart? Carts { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Cart> Carts { get; set; } 
     }
