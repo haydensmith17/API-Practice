@@ -1,3 +1,15 @@
+.store {
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(
+            115deg,
+            rgb(24, 42, 115) 0%,
+            rgb(33, 138, 174) 69%,
+            rgb(32, 167, 172) 89%
+    ) !important;
+    height: 100%;
+}
+
 .storeCards {
     display: flex;
     align-items: start;
@@ -23,7 +35,7 @@
 }
 
 .DrawerAppBar {
-    margin-bottom: 65px;
+    margin-bottom: 64px;
 }
 
 .filterButton {
@@ -32,20 +44,4 @@
     position: absolute;
     left: 15px;
     top: 75px;
-}
-
-Button {
-    background-color: rgb(32, 167, 172);
-
-}
-
-.store {
-    display: flex;
-    justify-content: center;
-    background-image: linear-gradient(
-            115deg,
-            rgb(24, 42, 115) 0%,
-            rgb(33, 138, 174) 69%,
-            rgb(32, 167, 172) 89%
-    ) !important;
 }

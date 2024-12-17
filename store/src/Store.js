@@ -106,17 +106,17 @@ function Store() {
                     <div className='boardCards'>
                     {boardFilter && board.map((info, index) => (
                         <>
-                            <Card sx={{ maxWidth: 345 }} key={index} >
+                            <Card sx={{ width: 345 }} key={index} >
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
-                                        height="300"
+                                        height="340"
                                         image={info.image}
                                         alt={info.name}
                                         />
-                                    <CardContent>
+                                    <CardContent >
                                         <Typography gutterBottom variant="h5" component="div">
-                                            {info.manufacturer} - {info.name} {info.size}cm ${info.price}
+                                            {info.manufacturer} / {info.name} {info.size}cm ${info.price}
                                         </Typography>
                                     </CardContent>
                                     <CardActions disableSpacing>
@@ -158,7 +158,7 @@ function Store() {
                     </div>
                     <div className='accessoryCards'>
                     {accessoryFilter && accessories.map((info, index) => (
-                        <Card sx={{ maxWidth: 345 }} key={index}>
+                        <Card sx={{ width: 345 }} key={index}>
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
@@ -168,7 +168,7 @@ function Store() {
                                     />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">
-                                        {info.manufacturer} - {info.name} {info.size}cm ${info.price}
+                                        {info.manufacturer} / {info.name} {info.size} ${info.price}
                                     </Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
